@@ -1,0 +1,47 @@
+[
+  {
+    "id": "and1",
+    "type": "Phone",
+    "brand": "Samsung",
+    "name": "Galaxy Note 3",
+    "proxy": {
+      "port": 8280
+    },
+    "capabilities": {
+      "platformName": "Android",
+      "platformVersion": "5.0",
+      "deviceName": "4d001ae1b881a0d7",
+      "browserName": "Chrome"
+    }
+  },
+  {
+    "id": "and2",
+    "type": "Phone",
+    "brand": "Samsung",
+    "name": "Galaxy Note 3 Neo",
+    "proxy": {
+      "port": 8281
+    },
+    "capabilities": {
+      "platformName": "Android",
+      "platformVersion": "5.1.1",
+      "deviceName": "3204c99da4b2b059",
+      "browserName": "Chrome"
+    }
+  },
+  {
+    "id": "and3",
+    "type": "Tablet",
+    "brand": "Xiaomi",
+    "name": "Mi Pad",
+    "proxy": {
+      "port": 8282
+    },
+    "capabilities": {
+      "platformName": "Android",
+      "platformVersion": "4.4.4",
+      "deviceName": "990B001D",
+      "browserName": "Chrome"
+    }
+  }
+]
