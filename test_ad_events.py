@@ -9,7 +9,7 @@ def test_start_events(proxy, driver):
     WDWait(driver, 20).until(EC.visibility_of_element_located((By.CLASS_NAME, "vjs-play-control")))
     driver.find_element_by_class_name("vjs-play-control").click()
     WDWait(driver, 20).until(EC.presence_of_element_located((By.ID, "skip_time")))
-    sleep(2)
+    sleep(5)
     har = json.dumps(proxy.har)
     assert "autotest/impression1" in har
     assert "autotest/impression2" in har
