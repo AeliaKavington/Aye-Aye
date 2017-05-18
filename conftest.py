@@ -4,7 +4,7 @@ from appium import webdriver as appium
 import get_devices
 
 # Browsermob proxy agent should be started
-server = Server('browsermob-proxy-2.1.4/bin/browsermob-proxy')
+server = Server('/data/browsermob-proxy-2.1.4/bin/browsermob-proxy')
 
 def pytest_addoption(parser):
     parser.addoption('--device', '-D',
