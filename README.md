@@ -2,6 +2,4 @@
 
 ## Auto-tests for Rutube HTML5-player with mobile browsers.
 
-Tests requests running Appium and BrowserMob Proxy.
-http://appium.io/
-https://github.com/lightbody/browsermob-proxy
+Tests requests running [Appium](http://appium.io/) and [BrowserMob Proxy](https://github.com/lightbody/browsermob-proxy).
