@@ -2,9 +2,11 @@ import pytest
 from browsermobproxy import Server
 from appium import webdriver as appium
 import get_devices
+import subprocess
+from time import sleep
 
 # Browsermob proxy agent should be started
-server = Server('/data/browsermob-proxy-2.1.4/bin/browsermob-proxy')
+server = Server('./browsermob-proxy-2.1.4/bin/browsermob-proxy')
 
 def pytest_addoption(parser):
     parser.addoption('--device', '-D',
@@ -25,6 +27,18 @@ def device(request):
         get_devices.print_devices()
         pytest.exit('Unknown device: {}'.format(device))
 
+
+@pytest.fixture(scope="session", autouse=True)
+def appium_start(request):
+    print('Starting Appium server...')
+    appium = subprocess.Popen(args=['/usr/local/bin/appium', '--session-override'], shell=False, stdout=subprocess.DEVNULL)
+    sleep(5)
+    print('Appium process with PID {} was started.'.format(appium.pid))
+
+    def appium_stop():
+        appium.kill()
+        print('Appium process with PID {} has been stopped.'.format(appium.pid))
+    request.addfinalizer(appium_stop)
 
 @pytest.fixture
 def proxy(request, device):
