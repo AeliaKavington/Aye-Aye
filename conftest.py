@@ -1,18 +1,22 @@
-import pytest
-from browsermobproxy import Server
-from appium import webdriver as appium
-import get_devices
 import subprocess
 from time import sleep
 
+import pytest
+from appium import webdriver as appium
+from browsermobproxy import Server
+
+import get_devices
+
 # Browsermob proxy agent should be started
-server = Server('/data/browsermob-proxy-2.1.4/bin/browsermob-proxy')
+server = Server('../utils/browsermob-proxy-2.1.4/bin/browsermob-proxy')
+
 
 def pytest_addoption(parser):
     parser.addoption('--device', '-D',
                      action='store',
                      default=get_devices.default_device(),
                      help='run with specified device')
+
 
 @pytest.fixture
 def device(request):
@@ -28,17 +32,20 @@ def device(request):
         pytest.exit('Unknown device: {}'.format(device))
 
 
-@pytest.fixture(scope="session", autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def appium_start(request):
-    print('Starting Appium server...')
-    appium = subprocess.Popen(args=['/usr/local/bin/appium', '--session-override'], shell=False, stdout=subprocess.DEVNULL)
-    sleep(5)
+    print('\nStarting Appium server...')
+    appium = subprocess.Popen(args=['/usr/local/bin/appium', '--session-override'],
+                              shell=False, stdout=subprocess.DEVNULL)
+    sleep(8)
     print('Appium process with PID {} was started.'.format(appium.pid))
 
     def appium_stop():
         appium.kill()
-        print('Appium process with PID {} has been stopped.'.format(appium.pid))
+        print('\nAppium process with PID {} has been stopped.'.format(appium.pid))
+
     request.addfinalizer(appium_stop)
+
 
 @pytest.fixture
 def proxy(request, device):
@@ -50,10 +57,11 @@ def proxy(request, device):
     request.addfinalizer(proxy.close)
     return proxy
 
+
 @pytest.fixture
 def driver(request, device):
     try:
-        wd = appium.Remote('http://localhost:4723/wd/hub', desired_capabilities = device['capabilities'])
+        wd = appium.Remote('http://localhost:4723/wd/hub', desired_capabilities=device['capabilities'])
     except:
         pytest.exit('Can\'t connect to appium')
     request.addfinalizer(wd.quit)

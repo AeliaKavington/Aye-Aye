@@ -2,4 +2,3 @@ Appium-Python-Client
 selenium
 browsermob-proxy
 pytest
-pytest-xdist
