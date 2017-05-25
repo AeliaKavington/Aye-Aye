@@ -8,7 +8,7 @@ from browsermobproxy import Server
 import get_devices
 
 # Browsermob proxy agent should be started
-server = Server('../utils/browsermob-proxy-2.1.4/bin/browsermob-proxy')
+server = Server('/data/browsermob-proxy-2.1.4/bin/browsermob-proxy')
 
 
 def pytest_addoption(parser):
