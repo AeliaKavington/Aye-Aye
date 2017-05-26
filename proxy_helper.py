@@ -23,9 +23,9 @@ class ProxyWait(object):
         #  Wait for resource in the HAR until Timeout
         end_time = time.time() + self._timeout
         while True:
+            data = json.dumps(self._proxy.har)
             debug = [item['request']['url'] for item in json.loads(data)['log']['entries']
                      if 'log.rutube.ru' in item['request']['url']]
-            data = json.dumps(self._proxy.har)
             value = string
             if value in data:
                 return
@@ -39,9 +39,9 @@ class ProxyWait(object):
         # Wait for resource not appear in the HAR until Timeout
         end_time = time.time() + self._timeout
         while True:
+            data = json.dumps(self._proxy.har)
             debug = [item['request']['url'] for item in json.loads(data)['log']['entries']
                      if 'log.rutube.ru' in item['request']['url']]
-            data = json.dumps(self._proxy.har)
             value = string
             if value in data:
                 break
