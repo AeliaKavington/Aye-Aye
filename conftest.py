@@ -1,5 +1,7 @@
+import json
 import subprocess
 from time import sleep
+from urllib import parse
 
 import pytest
 from appium import webdriver as appium
@@ -54,7 +56,20 @@ def proxy(request, device):
     except:
         pytest.exit('Can\'t connect to proxy')
     proxy.new_har('proxy')
-    request.addfinalizer(proxy.close)
+
+    def print_logs(log):
+        print("\nLOGS:")
+        for item in log:
+            print(parse.unquote(item))
+
+    def close_proxy():
+        data = json.dumps(proxy.har)
+        debug = [item['request']['url'] for item in json.loads(data)['log']['entries']
+                 if 'log.rutube.ru' in item['request']['url']]
+        print(print_logs(debug))
+        proxy.close()
+
+    request.addfinalizer(close_proxy)
     return proxy
 
 
